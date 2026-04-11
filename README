@@ -53,6 +53,21 @@ Manual steps:
 	exit
 	podman compose up -d
 
+WordPress (wordpress): Blogging
+Manual steps:
+	echo "<long_string>" | podman secret create wordpress_db_password
+	podman exec -it mariadb bash
+	# Inside container
+	mariadb -u root -p"$(cat /run/secrets/mariadb_root_password)"
+	# Inside interactive SQL session
+	CREATE USER 'memos'@'%' IDENTIFIED BY '<long_string>';
+	CREATE DATABASE memos;
+	GRANT ALL PRIVILEGES ON memos.* TO 'memos'@'%';
+	FLUSH PRIVILEGES;
+	EXIT
+	exit
+	podman compose up -d
+
 
 Disclaimer
 ===============

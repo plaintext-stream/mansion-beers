@@ -11,6 +11,7 @@ services:
       - ./conf.d/:/etc/nginx/conf.d/:ro
       - ./dummy_cert/:/var/cert/dummy/:ro
       - acme-sh_acme-sh_cert:/var/cert/:ro
+      - wordpress_wordpress_data:/var/www/html:ro
     networks:
       - websrv
 
@@ -20,5 +21,7 @@ networks:
 
 volumes:
   acme-sh_acme-sh_cert:
+    external: true
+  wordpress_wordpress_data:
     external: true
 

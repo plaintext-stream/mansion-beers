@@ -1,0 +1,69 @@
+MANSION COMPOSE
+====================
+
+Compose files used to build the PTS "Mansion" server, designed to be as repro-
+ducible as possible.
+
+Rootless environment is recommended. Create one with root:
+	useradd -m podmanager
+	loginctl enable-linger podmanager
+
+Web services share one virtual network:
+	podman network create websrv
+
+
+Applications
+===============
+
+acme.sh (acme-sh): Automatically renew TLS certificates
+Manual steps:
+	echo "CF_Token=<your_token>" > .env
+	podman compose up -d
+	podman exec acme.sh --set-default-ca --server letsencrypt
+	podman exec acme.sh --issue -d <your_domain> --dns dns_cf
+	podman exec acme.sh mkdir /cert/<your_domain>
+	podman exec acme.sh --install-cert -d <your_domain> \
+		--key-file /cert/<your_domain>/private.key \
+		--fullchain-file /cert/<your_domain>/public.crt
+
+NGINX (nginx): Reverse proxying
+Manual steps:
+	firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=9080
+	firewall-cmd --permanent --add-forward-port=port=443:proto=tcp:toport=9443
+	firewall-cmd --reload # 80 (Request) -> 9080 (Host) -> 80 (Container)
+	podman compose up -d
+
+MariaDB (mariadb): Database
+Manual steps:
+	echo "<long_string>" | podman secret create mariadb_root_password -
+	podman compose up -d
+
+Memos (memos): One-man SNS
+Manual steps:
+	echo "memos:<long_string>@tcp(mariadb:3306)/memos" | podman secret create memos_connection -
+	podman exec -it mariadb bash
+	# Inside container
+	mariadb -u root -p"$(cat /run/secrets/mariadb_root_password)"
+	# Inside interactive SQL session
+	CREATE USER 'memos'@'%' IDENTIFIED BY '<long_string>';
+	CREATE DATABASE memos;
+	GRANT ALL PRIVILEGES ON memos.* TO 'memos'@'%';
+	FLUSH PRIVILEGES;
+	EXIT
+	exit
+	podman compose up -d
+
+
+Disclaimer
+===============
+
+Compose files and instructions are provided for reference only. They have only 
+been tested on MY server and may or MAY NOT suit your conditions.
+
+
+License
+===============
+
+MIT; Keep attribution
+
+

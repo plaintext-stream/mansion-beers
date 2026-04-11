@@ -1,0 +1,26 @@
+services:
+  mariadb:
+    image: docker.io/library/mariadb
+    restart: always
+    container_name: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
+    secrets:
+      - mariadb_root_password
+    volumes:
+      - ./my.cnf:/etc/mysql/conf.d/custom.cnf:ro
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - websrv
+
+networks:
+  websrv:
+    external: true
+
+secrets:
+  mariadb_root_password:
+    external: true
+
+volumes:
+  mariadb_data:
+

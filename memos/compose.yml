@@ -1,0 +1,30 @@
+services:
+  memos:
+    image: docker.io/neosmemo/memos:stable
+    container_name: memos
+    restart: always
+    ports:
+      - 5230:5230
+    volumes:
+      - memos_data:/var/opt/memos
+    environment:
+      MEMOS_PORT: 5230
+      MEMOS_DRIVER: mysql
+      MEMOS_DSN_FILE: /run/secrets/memos_connection
+      MEMOS_INSTANCE_URL: https://timeline.plaintext.stream
+    secrets:
+      - memos_connection
+    networks:
+      - websrv
+
+networks:
+  websrv:
+    external: true
+
+secrets:
+  memos_connection:
+    external: true
+
+volumes:
+  memos_data:
+

@@ -1,0 +1,14 @@
+services:
+  acme-sh:
+    image: docker.io/neilpang/acme.sh
+    container_name: acme-sh
+    restart: always
+    volumes:
+      - acme-sh_cert:/cert
+    environment:
+      - CF_Token=${CF_Token}
+    command: daemon
+
+volumes:
+  acme-sh_cert:
+

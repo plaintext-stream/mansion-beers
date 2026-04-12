@@ -54,6 +54,7 @@ Manual steps:
 	podman compose up -d
 
 WordPress (wordpress): Blogging
+- CURRENTLY DISABLED -
 Manual steps:
 	echo "<long_string>" | podman secret create wordpress_db_password
 	podman exec -it mariadb bash

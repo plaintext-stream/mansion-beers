@@ -11,7 +11,7 @@ services:
       - ./conf.d/:/etc/nginx/conf.d/:ro
       - ./dummy_cert/:/var/cert/dummy/:ro
       - acme-sh_acme-sh_cert:/var/cert/:ro
-#       - wordpress_wordpress_data:/var/www/html:ro
+#       - wordpress_wordpress_data:/var/www/wordpress:ro
 #       - typecho_typecho_data:/var/www/typecho:ro
     networks:
       - websrv

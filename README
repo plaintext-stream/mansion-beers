@@ -34,7 +34,6 @@ Manual steps:
 	podman compose up -d
 
 MariaDB (mariadb): Database
-- CURRENTLY DISABLED -
 Manual steps:
 	echo "<long_string>" | podman secret create mariadb_root_password -
 	podman compose up -d
@@ -71,6 +70,7 @@ Manual steps:
 	podman compose up -d
 
 PostgreSQL (postgres): Database
+- CURRENTLY DISABLED -
 Manual steps:
 	echo "<long_string>" | podman secret create postgres_root_password
 	podman compose up -d

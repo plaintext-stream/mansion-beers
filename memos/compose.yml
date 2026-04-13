@@ -7,7 +7,7 @@ services:
       - memos_data:/var/opt/memos
     environment:
       MEMOS_PORT: 5230
-      MEMOS_DRIVER: postgres
+      MEMOS_DRIVER: mysql
       MEMOS_DSN_FILE: /run/secrets/memos_db_connection
       MEMOS_INSTANCE_URL: https://timeline.plaintext.stream
     secrets:

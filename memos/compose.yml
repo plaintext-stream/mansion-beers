@@ -1,13 +1,13 @@
 services:
   memos:
-    image: docker.io/neosmemo/memos:0.27.0-rc.2
+    image: neosmemo/memos:0.26
     container_name: memos
     restart: always
     volumes:
       - memos_data:/var/opt/memos
     environment:
       MEMOS_PORT: 5230
-      MEMOS_DRIVER: mysql
+      MEMOS_DRIVER: postgres
       MEMOS_DSN_FILE: /run/secrets/memos_db_connection
       MEMOS_INSTANCE_URL: https://timeline.plaintext.stream
     secrets:

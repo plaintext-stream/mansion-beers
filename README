@@ -34,22 +34,20 @@ Manual steps:
 	podman compose up -d
 
 MariaDB (mariadb): Database
+- CURRENTLY DISABLED -
 Manual steps:
 	echo "<long_string>" | podman secret create mariadb_root_password -
 	podman compose up -d
 
 Memos (memos): One-man SNS
 Manual steps:
-	echo "memos:<long_string>@tcp(mariadb:3306)/memos" | podman secret create memos_connection -
-	podman exec -it mariadb bash
-	# Inside container
-	mariadb -u root -p"$(cat /run/secrets/mariadb_root_password)"
+	echo "postgres://memos:<long_string>@postgres:5432/memos?sslmode=disable" | podman secret create memos_connection -
+	podman exec -it postgres psql -U postgres -W
 	# Inside interactive SQL session
-	CREATE USER 'memos'@'%' IDENTIFIED BY '<long_string>';
-	CREATE DATABASE memos;
-	GRANT ALL PRIVILEGES ON memos.* TO 'memos'@'%';
-	FLUSH PRIVILEGES;
-	EXIT
+	create database memos;
+	create user memos with password '<long_string>';
+	grant all privileges on database memos to memos;
+	alter database memos owner to memos;
 	exit
 	podman compose up -d
 
@@ -70,7 +68,6 @@ Manual steps:
 	podman compose up -d
 
 PostgreSQL (postgres): Database
-- CURRENTLY DISABLED -
 Manual steps:
 	echo "<long_string>" | podman secret create postgres_root_password
 	podman compose up -d
@@ -79,7 +76,7 @@ Typecho (typecho): Blogging
 - CURRENTLY DISABLED -
 Manual steps:
 	echo "TYPECHO_DB_PASSWORD=<long_string>" > .env
-	podman exec -it postgres -U postgres -W
+	podman exec -it postgres psql -U postgres -W
 	# Inside interactive SQL session
 	create database typecho;
 	create user typecho with password '<long_string>';

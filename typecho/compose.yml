@@ -1,6 +1,6 @@
 services:
   typecho:
-    image: docker.io/joyqi/typecho:1.3.0-php8.2-fpm
+    image: joyqi/typecho:1.3.0-php8.2-fpm
     container_name: typecho
     restart: always
     environment:

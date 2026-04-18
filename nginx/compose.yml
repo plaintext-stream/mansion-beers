@@ -12,7 +12,7 @@ services:
       - ./dummy_cert/:/var/cert/dummy/:ro
       - acme-sh_acme-sh_cert:/var/cert/:ro
 #       - wordpress_wordpress_data:/var/www/wordpress:ro
-#       - typecho_typecho_data:/var/www/typecho:ro
+      - typecho_typecho_data:/var/www/typecho:ro
     networks:
       - websrv
 
@@ -25,6 +25,6 @@ volumes:
     external: true
 #   wordpress_wordpress_data:
 #     external: true
-#   typecho_typecho_data:
-#     external: true
+  typecho_typecho_data:
+    external: true
 

@@ -73,7 +73,6 @@ Manual steps:
 	podman compose up -d
 
 Typecho (typecho): Blogging
-- CURRENTLY DISABLED -
 Manual steps:
 	echo "TYPECHO_DB_PASSWORD=<long_string>" > .env
 	podman exec -it postgres psql -U postgres -W

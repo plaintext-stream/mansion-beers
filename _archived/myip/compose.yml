@@ -1,0 +1,17 @@
+services:
+  myip:
+    image: jason5ng32/myip:v5.3.0
+    container_name: myip
+    restart: always
+    environment:
+      - MAXMIND_ACCOUNT_ID="${MAXMIND_ACCOUNT_ID}"
+      - MAXMIND_LICENSE_KEY="${MAXMIND_LICENSE_KEY}"
+      - MAXMIND_AUTO_UPDATE="true"
+      - ALLOWED_DOMAINS="ipcheck.plaintext.stream"
+    networks:
+      - websrv
+
+networks:
+  websrv:
+    external: true
+

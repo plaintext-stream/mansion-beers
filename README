@@ -52,7 +52,6 @@ Manual steps:
 	podman compose up -d
 
 WordPress (wordpress): Blogging
-- CURRENTLY DISABLED -
 Manual steps:
 	echo "<long_string>" | podman secret create wordpress_db_password
 	podman exec -it mariadb bash
@@ -83,6 +82,11 @@ Manual steps:
 	grant all privileges on database typecho to typecho;
 	alter database typecho owner to typecho;
 	exit
+	podman compose up -d
+
+MyIP (myip): IP toolbox
+- CURRENTLY DISABLED -
+Manual steps:
 	podman compose up -d
 
 

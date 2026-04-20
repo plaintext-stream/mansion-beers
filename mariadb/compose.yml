@@ -8,7 +8,6 @@ services:
     secrets:
       - mariadb_root_password
     volumes:
-      - ./my.cnf:/etc/mysql/conf.d/custom.cnf:ro
       - mariadb_data:/var/lib/mysql
     networks:
       - websrv

@@ -1,0 +1,28 @@
+services:
+  typecho:
+    image: joyqi/typecho:1.3.0-php8.2-fpm
+    container_name: typecho
+    restart: always
+    environment:
+      - TYPECHO_SITE_URL=https://journal.plaintext.stream
+      - TYPECHO_INSTALL=1
+      - MEMORY_LIMIT=1G
+      - MAX_POST_BODY=64M
+      - TYPECHO_DB_ADAPTER=Pdo_Pgsql
+      - TYPECHO_DB_HOST=postgres
+      - TYPECHO_DB_PORT=5432
+      - TYPECHO_DB_USER=typecho
+      - TYPECHO_DB_DATABASE=typecho
+      - TYPECHO_DB_PASSWORD=${TYPECHO_DB_PASSWORD}
+    volumes:
+      - typecho_data:/app
+    networks:
+      - websrv
+
+networks:
+  websrv:
+    external: true
+
+volumes:
+  typecho_data:
+

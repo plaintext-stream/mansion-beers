@@ -1,0 +1,22 @@
+services:
+  openlist:
+    image: openlistteam/openlist:v4.2.1
+    restart: always
+    container_name: openlist
+    user: 0:0
+    volumes:
+      - openlist_data:/opt/openlist/data
+      - openlist_storage:/assets
+    networks:
+      - websrv
+    environment:
+      - UMASK=022
+
+volumes:
+  openlist_data:
+  openlist_storage:
+
+networks:
+  websrv:
+    external: true
+

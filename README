@@ -89,6 +89,11 @@ MyIP (myip): IP toolbox
 Manual steps:
 	podman compose up -d
 
+OpenList (openlist): Unified web storage
+- CURRENTLY DISABLED -
+Manual steps:
+	podman compose up -d
+
 
 Disclaimer
 ===============
